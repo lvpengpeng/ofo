@@ -3,7 +3,6 @@
 }
 .container .nav-left {
   height: calc(100vh);
-  background: red;
 }
 .container .main {
   height: calc(100vh);
