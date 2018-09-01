@@ -10,4 +10,5 @@
 .container .content {
   position: relative;
   padding: 20px;
+  background: #ccc;
 }
