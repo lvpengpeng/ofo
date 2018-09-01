@@ -1,5 +1,5 @@
 .header {
-  background-color: #002140;
+  background-color: #1890ff;
   color: #fff;
 }
 .header .header-top {
@@ -31,7 +31,16 @@
 }
 .header .breadcrumb .breadcrumb-title {
   text-align: center;
-  font-size: 24px;
+  font-size: #fff;
+}
+.header .breadcrumb .breadcrumb-title:after {
+  position: absolute;
+  content: '';
+  left: 73px;
+  top: 39px;
+  border-top: 9px solid #fff;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
 }
 .header .breadcrumb .weather {
   text-align: right;
@@ -40,4 +49,15 @@
 .header .breadcrumb .weather .date {
   margin-right: 10px;
   vertical-align: middle;
+}
+.header .breadcrumb .weather .weather-img img {
+  height: 15px;
+}
+.header .breadcrumb .weather .weather-detail {
+  margin-left: 5px;
+  vertical-align: middle;
+}
+.simple-page .header-top {
+  background: #1890ff;
+  color: #1890ff;
 }

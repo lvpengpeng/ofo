@@ -1,5 +1,6 @@
+
 .header{
-    background-color:#002140;
+    background-color:#1890ff;
     color: #fff;
     .header-top{
         height: 60px;
@@ -29,7 +30,16 @@
         border-top: 1px solid #f9c700;
         .breadcrumb-title{
             text-align: center;
-            font-size: 24px;
+            font-size: #fff;
+            &:after{
+                position: absolute;
+                content: '';
+                left:73px;
+                top:39px;
+                border-top: 9px solid #fff;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+            }
         }
         .weather{
             text-align: right;
@@ -38,6 +48,21 @@
                 margin-right: 10px;
                 vertical-align: middle;
             }
+            .weather-img{
+                img{
+                    height: 15px;
+                }
+            }
+            .weather-detail{
+                margin-left: 5px;
+                vertical-align: middle;
+            }
         }
     }
+}
+.simple-page{
+  .header-top{
+    background:#1890ff;
+    color:#1890ff;
+  }
 }
