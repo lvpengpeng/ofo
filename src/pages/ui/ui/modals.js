@@ -12,6 +12,22 @@ export default class Modals extends React.Component{
             // [type]当成变量
         })
     }
+
+    handleConfirm = (type)=>{
+        Modal[type]({
+            title:'确认？',
+            content:'你确定你学会了React了吗？',
+            // onOk和onCancal 是内置封装好的确定和取消事件，可直接调用，不需定义
+            onOk(){
+                console.log('可以发送请求了')
+            },
+            onCancel(){
+                console.log('Cancel')
+            }
+        })
+    }
+
+
     render(){
         return(
             <div>
@@ -21,6 +37,12 @@ export default class Modals extends React.Component{
                     <Button type="primary" onClick={() =>this.handleOpen('showModal2')}>自定义页脚</Button>
                     <Button type="primary" onClick={() =>this.handleOpen('showModal3')}>顶部20px弹框</Button>
                     <Button type="primary" onClick={() =>this.handleOpen('showModal4')}>水平垂直居中</Button>
+                </Card>
+                <Card title="信息确认框" className="card-wrap">
+                    <Button type="primary" onClick={() => this.handleConfirm('confirm')}>Confirm</Button>
+                    <Button type="primary" onClick={() => this.handleConfirm('info')}>Info</Button>
+                    <Button type="primary" onClick={() => this.handleConfirm('success')}>Success</Button>
+                    <Button type="primary" onClick={() => this.handleConfirm('warning')}>Warning</Button>
                 </Card>
                 <Modal
                     title="React"
