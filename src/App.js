@@ -5,8 +5,8 @@ import Demo from './pages/demo'
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Demo></Demo>  
+      <div>
+        {this.props.children}
       </div>
     );
   }
