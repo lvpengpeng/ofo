@@ -2,6 +2,7 @@ import React from 'react'
 import MentConfig from './'
 import { Menu, Icon } from 'antd';
 import MenuConfig from './../../config/menuConfig'
+import {NavLink} from 'react-router-dom'
 // ./index.less 在const SubMenu = Menu.SubMenu 之前
 import './index.less'
 const SubMenu = Menu.SubMenu;
@@ -26,7 +27,9 @@ export default class NavLeft extends React.Component{
                     </SubMenu>
                 ) 
             }
-            return <Menu.Item title={item.title} key={item.key}>{item.title}</Menu.Item >    
+            return <Menu.Item title={item.title} key={item.key}>
+                    <NavLink to={item.key}>{item.title}</NavLink>
+            </Menu.Item >    
         })
     }
     render(){
