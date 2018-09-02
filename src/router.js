@@ -7,6 +7,7 @@ import Order from './pages/order'
 import Admin from './admin'
 import Buttons from './pages/ui/ui'
 import Modals from './pages/ui/ui/modals'
+import Loadings from './pages/ui/ui/loading'
 import Nomatch from './pages/nomatch'
 export default class Router extends React.Component{
     render(){
@@ -19,6 +20,7 @@ export default class Router extends React.Component{
                             <Switch>
                                 <Route path="/admin/ui/buttons" component={Buttons}/>
                                 <Route path="/admin/ui/modals" component={Modals}/>
+                                <Route path="/admin/ui/loadings" component={Loadings}/>
                                 <Route component={Nomatch}/>
                             </Switch>
                         </Admin>
