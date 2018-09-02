@@ -11,6 +11,7 @@ import Loadings from './pages/ui/ui/loading'
 import Nomatch from './pages/nomatch'
 import Notice from './pages/ui/ui/notice'
 import Message from './pages/ui/ui/message'
+import Tabs from './pages/ui/ui/tabs'
 export default class Router extends React.Component{
     render(){
         return(
@@ -25,6 +26,7 @@ export default class Router extends React.Component{
                                 <Route path="/admin/ui/loadings" component={Loadings}/>
                                 <Route path="/admin/ui/notification" component={Notice}/>
                                 <Route path="/admin/ui/messages" component={Message}/>
+                                <Route path="/admin/ui/tabs" component={Tabs}/>
                                 <Route component={Nomatch}/>
                             </Switch>
                         </Admin>
