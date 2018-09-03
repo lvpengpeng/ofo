@@ -1,10 +1,19 @@
 import React from 'react'
-import { Card, Form ,Input,Button} from 'antd'
+import { Card, Form ,Input,Button, message,Icon, Checkbox} from 'antd'
 
 const FormItem = Form.Item;
 // 通过Form组件的item属性，可拿到FromItem子项。
 class FormLogin extends React.Component{
+    handleSubmit = ()=>{
+        let userInfo = this.props.form.getFieldsValue();
+        this.props.form.validateFields((err,values)=>{
+            if(!err){
+                message.success(`${userInfo.userName} 恭喜你，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}`)
+            }
+        })
+    }
     render(){
+        const { getFieldDecorator } = this.props.form;
         return(
                 <div>
                     <Card title="登录行内表单">
@@ -20,9 +29,65 @@ class FormLogin extends React.Component{
                             </FormItem>
                         </Form>
                     </Card>
+                    <Card title="登录水平表单" style={{marginTop:10}}>
+                    {/* 默认水平的 */}
+                        <Form style={{width:300}}>
+                            <FormItem>
+                            {
+                                getFieldDecorator('userName',{
+                                    initialValue:'',
+                                    rules:[
+                                        {
+                                            required:true,
+                                            message:'用户名不能为空'
+                                        },
+                                        {
+                                            min:5,max:10,
+                                            message:'长度不在范围内'
+                                        },
+                                        {
+                                            // pattern 正则
+                                            pattern:new RegExp('^\\w+$','g'),
+                                            message:'用户名必须为字母或者数字'
+                                        }
+                                    ]
+                                })(
+                                    <Input prefix={<Icon type="user"/>} placeholder="请输入用户名" />
+                                )
+                            }
+                            </FormItem>
+                            <FormItem>
+                            {
+                                getFieldDecorator('userPwd', {
+                                    initialValue: '',
+                                    rules: []
+                                })(
+                                    <Input prefix={<Icon type="lock" />} type="password" placeholder="请输入密码" />
+                                )
+                            }
+                            </FormItem>
+                            <FormItem>
+                            {
+                                getFieldDecorator('remember', {
+                                    valuePropName:'checked',
+                                    initialValue: true
+                                })(
+                                    <Checkbox>记住密码</Checkbox>
+                                )
+                            }
+                            <a href="#" style={{float:'right'}}>忘记密码</a>
+                        </FormItem>
+                            <FormItem>
+                                    <Button type="prinary" onClick={()=>this.handleSubmit()}>登录</Button>
+                            </FormItem>
+                        </Form>
+                    </Card>
                 </div>
         )
     }
 }
-export default FormLogin
+export default Form.create()(FormLogin);
+// 用Form.create()(FormLogin) 包装之后，
+// 就可以通过this.props.form ，通过getFieldDecorator，可以直接获取input里的内容了。
+// 这是from组件为我们封装好的操作，不用使用onchange操作input内容了。生成的组件就可以导出了。
 
