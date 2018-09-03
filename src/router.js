@@ -12,6 +12,7 @@ import Nomatch from './pages/nomatch'
 import Notice from './pages/ui/ui/notice'
 import Message from './pages/ui/ui/message'
 import Gallery from './pages/ui/ui/gallery'
+import Carousel from './pages/ui/ui/carousel'
 import Tabs from './pages/ui/ui/tabs'
 export default class Router extends React.Component{
     render(){
@@ -29,6 +30,7 @@ export default class Router extends React.Component{
                                 <Route path="/admin/ui/messages" component={Message}/>
                                 <Route path="/admin/ui/tabs" component={Tabs}/>
                                 <Route path="/admin/ui/gallery" component={Gallery}/>
+                                <Route path="/admin/ui/carousel" component={Carousel}/>
                                 <Route component={Nomatch}/>
                             </Switch>
                         </Admin>
