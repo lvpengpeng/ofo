@@ -31,6 +31,14 @@ class Register extends React.Component{
         }
     }
     
+
+    handleSubmit = ()=>{
+        let userInfo = this.props.form.getFieldsValue();
+        // this.props.form.getFieldsValue(); 获取表单里所以的数据
+        console.log(JSON.stringify(userInfo))
+        message.success(`${userInfo.userName} 恭喜你，您通过本次表单组件学习，当前密码为：${userInfo.userPwd}`)
+    }
+
     render(){
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -204,6 +212,9 @@ class Register extends React.Component{
                                    <Checkbox>我已阅读过<a href="#">慕课协议</a></Checkbox>
                                 )
                             }
+                        </FormItem>
+                        <FormItem {...offsetLayout}>
+                            <Button type="primary" onClick={this.handleSubmit}>注册</Button>
                         </FormItem>
                     </Form>
                 </Card>
