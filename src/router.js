@@ -14,6 +14,7 @@ import Message from './pages/ui/ui/message'
 import Gallery from './pages/ui/ui/gallery'
 import Carousel from './pages/ui/ui/carousel'
 import FormLogin from './pages/form/login'
+import FormRegister from './pages/form/register'
 import Tabs from './pages/ui/ui/tabs'
 export default class Router extends React.Component{
     render(){
@@ -33,6 +34,7 @@ export default class Router extends React.Component{
                                 <Route path="/admin/ui/gallery" component={Gallery}/>
                                 <Route path="/admin/ui/carousel" component={Carousel}/>
                                 <Route path="/admin/form/login" component={FormLogin}/>
+                                <Route path="/admin/form/reg" component={FormRegister}/>
                                 <Route component={Nomatch}/>
                             </Switch>
                         </Admin>
