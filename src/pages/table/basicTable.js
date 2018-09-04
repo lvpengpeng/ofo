@@ -1,7 +1,10 @@
 import React from 'react'
 import { Card,Table } from 'antd'
+import axios from 'axios'
 class BasicTable extends React.Component{
-    state={}
+    state={
+        data2:[]
+    }
 
     componentDidMount(){
         const data = [
@@ -38,6 +41,19 @@ class BasicTable extends React.Component{
         ]
         this.setState({
             data
+        })
+        this.request()
+    }
+
+    request = ()=>{
+        let baseApi = 'https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api';
+        axios.get(baseApi+'/table/list').then((res)=>{
+            if(res.status=='200'&&res.data.code==0){
+                // console.log(JSON.stringify(res.data.result.list),234)
+                this.setState({
+                    data2:res.data.result.list
+                })
+            }
         })
     }
 
@@ -83,6 +99,15 @@ class BasicTable extends React.Component{
                         bordered // 控制外边框线显示的
                         columns={columns}
                         dataSource={this.state.data}
+                        pagination={false} // pagination 控制分页的
+                    />
+                </Card>
+
+                <Card title="动态表格">
+                    <Table 
+                        bordered // 控制外边框线显示的
+                        columns={columns}
+                        dataSource={this.state.data2}
                         pagination={false} // pagination 控制分页的
                     />
                 </Card>
