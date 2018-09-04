@@ -51,7 +51,8 @@ class BasicTable extends React.Component{
             data:{
                 params:{
                     page:1
-                }
+                },
+                isShowLoading : true
             }
         }).then((res)=>{
             if(res.code == 0){
