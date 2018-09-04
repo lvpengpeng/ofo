@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card,Table } from 'antd'
-import axios from 'axios'
+import axios from './../../axios/index'
 class BasicTable extends React.Component{
     state={
         data2:[]
@@ -46,14 +46,19 @@ class BasicTable extends React.Component{
     }
 
     request = ()=>{
-        let baseApi = 'https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api';
-        axios.get(baseApi+'/table/list').then((res)=>{
-            if(res.status=='200'&&res.data.code==0){
-                // console.log(JSON.stringify(res.data.result.list),234)
-                this.setState({
-                    data2:res.data.result.list
-                })
+        axios.ajax({
+            url:'/table/list',
+            data:{
+                params:{
+                    page:1
+                }
             }
+        }).then((res)=>{
+            if(res.code == 0){
+                this.setState({
+                        data2:res.result.list
+                }
+            )}
         })
     }
 
