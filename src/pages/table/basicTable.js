@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card,Table ,Modal} from 'antd'
+import { Card,Table ,Modal,Button,message} from 'antd'
 import axios from './../../axios/index'
 class BasicTable extends React.Component{
     state={
@@ -82,6 +82,27 @@ class BasicTable extends React.Component{
             content:`用户名是${record.userName} ,兴趣是${record.interest}`
         })
     }
+
+    handleDelete=(record,index)=>{
+        let rows = this.state.selectedRows;
+        let ids =[];
+        rows.map((item)=>{
+            ids.push(item.id)
+        })
+        Modal.info({
+            title:'删除提示',
+            content:`确定删除数据${ids.join(',')}`,
+            onOk:()=>{
+                message.success("删除成功")
+                this.setState({
+                    selectedRowKeys:[],
+                    selectedItem:null
+                }
+            )
+                this.request()
+            }
+        })
+    }
     render(){
         const columns = [
             {
@@ -144,9 +165,21 @@ class BasicTable extends React.Component{
             }
         ]
         const {selectedRowKeys} =this.state
+        // 单选
         const rowSelection={
             type:"radio",
             selectedRowKeys
+        }
+        // 多选
+        const roCheckSelection={
+            type:"checkbox",
+            selectedRowKeys,
+            onChange:(selectedRowKeys,selectedRows)=>{
+                this.setState({
+                    selectedRowKeys,
+                    selectedRows
+                })
+            }
         }
         return(
             <div>
@@ -187,6 +220,32 @@ class BasicTable extends React.Component{
                             //   onXxxx...
                             };
                           }}
+                    />
+                </Card>
+
+                <Card title="Mock-多选，并且删除" style={{marginTop:"20px"}}>
+                    <div style={{marginBottom:10}}>
+                          <Button onClick={this.handleDelete}>删除</Button>
+                    </div>
+                    <Table 
+                        bordered // 控制外边框线显示的
+                        columns={columns}
+                        dataSource={this.state.data2}
+                        pagination={false} // pagination 控制分页的
+                        rowSelection={roCheckSelection}
+
+                        // 添加点击一行事件
+                        // onRow={(record,index) => {
+                        //     return {
+
+                        //         onClick: () => {
+                        //             this.onRowclick(record,index)
+                        //         }       
+                        //         // 点击行
+                        //     //   onMouseEnter: () => {},  // 鼠标移入行
+                        //     //   onXxxx...
+                        //     };
+                        //   }}
                     />
                 </Card>
             </div>
