@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card,Table } from 'antd'
+import { Card,Table ,Modal} from 'antd'
 import axios from './../../axios/index'
 class BasicTable extends React.Component{
     state={
@@ -39,6 +39,12 @@ class BasicTable extends React.Component{
                 time: '09:00'
             }
         ]
+
+        data.map((item,index)=>{
+            item.key=index //表格数据添加key，不然会警告
+        })
+
+
         this.setState({
             data
         })
@@ -56,13 +62,26 @@ class BasicTable extends React.Component{
             }
         }).then((res)=>{
             if(res.code == 0){
+                res.result.list.map((item,index)=>{
+                    item.key=index //表格数据添加key，不然会警告
+                })
                 this.setState({
-                        data2:res.result.list
+                    data2:res.result.list
                 }
             )}
         })
     }
-
+    onRowclick=(record,index)=>{
+        let selectKey = [index];
+        this.setState({
+            selectedRowKeys:selectKey,
+            selectedItem:record
+        })
+        Modal.info({
+            title:'确认？',
+            content:`用户名是${record.userName} ,兴趣是${record.interest}`
+        })
+    }
     render(){
         const columns = [
             {
@@ -124,9 +143,14 @@ class BasicTable extends React.Component{
                 dataIndex: 'time'
             }
         ]
+        const {selectedRowKeys} =this.state
+        const rowSelection={
+            type:"radio",
+            selectedRowKeys
+        }
         return(
             <div>
-                <Card title="基础表格">
+                <Card title="基础表格" style={{marginTop:"20px"}}>
                     <Table 
                         bordered // 控制外边框线显示的
                         columns={columns}
@@ -135,12 +159,34 @@ class BasicTable extends React.Component{
                     />
                 </Card>
 
-                <Card title="动态表格">
+                <Card title="动态表格" style={{marginTop:"20px"}}>
                     <Table 
                         bordered // 控制外边框线显示的
                         columns={columns}
                         dataSource={this.state.data2}
                         pagination={false} // pagination 控制分页的
+                    />
+                </Card>
+
+                <Card title="Mock-单选" style={{marginTop:"20px"}}>
+                    <Table 
+                        bordered // 控制外边框线显示的
+                        columns={columns}
+                        dataSource={this.state.data2}
+                        pagination={false} // pagination 控制分页的
+                        rowSelection={rowSelection}
+
+                        // 添加点击一行事件
+                        onRow={(record,index) => {
+                            return {
+
+                                onClick: () => {
+                                    this.onRowclick(record,index)
+                                }       // 点击行
+                            //   onMouseEnter: () => {},  // 鼠标移入行
+                            //   onXxxx...
+                            };
+                          }}
                     />
                 </Card>
             </div>
