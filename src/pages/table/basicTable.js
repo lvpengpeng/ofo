@@ -1,11 +1,14 @@
 import React from 'react'
 import { Card,Table ,Modal,Button,message} from 'antd'
 import axios from './../../axios/index'
+import Utils from './../../utils/utils.js'
 class BasicTable extends React.Component{
     state={
         data2:[]
     }
-
+    params={
+        page:1
+    }
     componentDidMount(){
         const data = [
             {
@@ -52,11 +55,12 @@ class BasicTable extends React.Component{
     }
 
     request = ()=>{
+        let _this = this;
         axios.ajax({
             url:'/table/list',
             data:{
                 params:{
-                    page:1
+                    page:this.params.page
                 },
                 isShowLoading : true
             }
@@ -66,7 +70,12 @@ class BasicTable extends React.Component{
                     item.key=index //表格数据添加key，不然会警告
                 })
                 this.setState({
-                    data2:res.result.list
+                    data2:res.result.list,
+                    pagination:Utils.pagination(res,(current)=>{
+                        // todo
+                        _this.params.page = current;
+                        this.request();
+                    })
                 }
             )}
         })
@@ -246,6 +255,16 @@ class BasicTable extends React.Component{
                         //     //   onXxxx...
                         //     };
                         //   }}
+                    />
+                </Card>
+
+                <Card title="Mock-添加分页" style={{marginTop:"20px"}}>
+                    <Table 
+                        bordered // 控制外边框线显示的
+                        columns={columns}
+                        dataSource={this.state.data2}
+                        pagination={this.state.pagination} // pagination 控制分页的
+                        rowSelection={roCheckSelection}
                     />
                 </Card>
             </div>
