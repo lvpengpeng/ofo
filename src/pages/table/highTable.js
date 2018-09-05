@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card,Table ,Modal,Button,message} from 'antd'
+import { Card,Table ,Modal,Button,messag , Badge} from 'antd'
 import axios from './../../axios/index'
 import Utils from './../../utils/utils.js'
 class BasicTable extends React.Component{
@@ -46,7 +46,7 @@ class BasicTable extends React.Component{
             sortOrder:sorter.order
         })
     }
-    
+
     render(){
         const columns = [
             {
@@ -291,6 +291,75 @@ class BasicTable extends React.Component{
             }
         ]
 
+        const columns4 = [
+            {
+                title:'id',
+                dataIndex:'id',
+                width:80
+            },
+            {
+                title: '用户名',
+                dataIndex: 'username',
+                width:80
+            },
+            {
+                title:'性别',
+                dataIndex:'sex',
+                render(sex){
+                    return sex==1?"男":"女"
+                },
+                width:80
+            },
+            {
+                title: '状态',
+                dataIndex: 'state',
+                render(state){
+                    let config  = {
+                        '1': <Badge status="success" text="成功"/>,
+                        '2': <Badge status="error" text="报错" />,
+                        '3': <Badge status="default" text="正常" />,
+                        '4': <Badge status="processing" text="进行中" />,
+                        '5': <Badge status="warning" text="警告" />
+                    }
+                    return config[state];
+                },
+                width:120
+            },
+            {
+                title:'兴趣',
+                dataIndex:'interest',
+                render(abc) {
+                    let config = {
+                        '1': '游泳',
+                        '2': '打篮球',
+                        '3': '踢足球',
+                        '4': '跑步',
+                        '5': '爬山',
+                        '6': '骑行',
+                        '7': '桌球',
+                        '8': '麦霸'
+                    }
+                    return config[abc];
+                },
+                width:80
+            },
+            {
+                title: '生日',
+                dataIndex: 'birthday',
+                width:80
+            },
+            {
+                title:'地址',
+                dataIndex:'address',
+                width:120
+            },
+            {
+                title: '时间',
+                dataIndex: 'time',
+                width:80
+            }
+        ]
+
         return(
             <div>
                 <Card title="头部固定" style={{marginTop:"20px"}}>
@@ -321,7 +390,14 @@ class BasicTable extends React.Component{
                         onChange={this.handleChange}
                     />
                 </Card>
-            
+                <Card title="操作按钮" style={{marginTop:"20px"}}>
+                    <Table 
+                        bordered // 控制外边框线显示的
+                        columns={columns4}
+                        dataSource={this.state.data}
+                        pagination={true} // pagination 控制分页的
+                    />
+                </Card>
             </div>
         )
     }
