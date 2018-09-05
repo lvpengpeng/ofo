@@ -44,18 +44,21 @@ class BasicTable extends React.Component{
         const columns = [
             {
                 title:'id',
-                dataIndex:'id'
+                dataIndex:'id',
+                width:80
             },
             {
                 title: '用户名',
-                dataIndex: 'userName'
+                dataIndex: 'userName',
+                width:80
             },
             {
                 title:'性别',
                 dataIndex:'sex',
                 render(sex){
                     return sex==1?"男":"女"
-                }
+                },
+                width:80
             },
             {
                 title: '状态',
@@ -69,7 +72,8 @@ class BasicTable extends React.Component{
                         '5':'创业者'
                     }
                     return config[state];
-                }
+                },
+                width:120
             },
             {
                 title:'兴趣',
@@ -86,19 +90,23 @@ class BasicTable extends React.Component{
                         '8': '麦霸'
                     }
                     return config[abc];
-                }
+                },
+                width:80
             },
             {
                 title: '生日',
-                dataIndex: 'birthday'
+                dataIndex: 'birthday',
+                width:80
             },
             {
                 title:'地址',
-                dataIndex:'address'
+                dataIndex:'address',
+                width:120
             },
             {
                 title: '时间',
-                dataIndex: 'time'
+                dataIndex: 'time',
+                width:80
             }
         ]
         return(
@@ -108,7 +116,8 @@ class BasicTable extends React.Component{
                         bordered // 控制外边框线显示的
                         columns={columns}
                         dataSource={this.state.data}
-                        pagination={false} // pagination 控制分页的
+                        pagination={true} // pagination 控制分页的
+                        scroll={{y:240}} //表头固定 1.第一步设置表单内容高度，其中表头不会和表单内容对齐所以手动控制表头的宽度。
                     />
                 </Card>
                 <Card title="左侧固定" style={{marginTop:"20px"}}>
