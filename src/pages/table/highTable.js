@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card,Table ,Modal,Button,messag , Badge} from 'antd'
+import { Card,Table ,Modal,Button,messag , Badge,message} from 'antd'
 import axios from './../../axios/index'
 import Utils from './../../utils/utils.js'
 class BasicTable extends React.Component{
@@ -46,7 +46,18 @@ class BasicTable extends React.Component{
             sortOrder:sorter.order
         })
     }
-
+    // 删除操作
+    handleDelete = (item)=>{
+        let id = item.id;
+        Modal.confirm({
+            title:'确认',
+            content:'您确认要删除此条数据吗？',
+            onOk:()=>{
+                message.success('删除成功');
+                this.request();
+            }
+        })
+    }
     render(){
         const columns = [
             {
@@ -346,7 +357,7 @@ class BasicTable extends React.Component{
             {
                 title: '生日',
                 dataIndex: 'birthday',
-                width:80
+                width:180
             },
             {
                 title:'地址',
@@ -354,9 +365,18 @@ class BasicTable extends React.Component{
                 width:120
             },
             {
-                title: '时间',
-                dataIndex: 'time',
-                width:80
+                title: '操作',
+                //  这样调用render 里面的this有问题
+                // render(text,item){
+                //     return <Button size="small" onClick={(item) => { this.handleDelete(item) }}>删除</Button>
+                // },
+
+                // 所以使用箭头函数
+                // render:(text,item) 里面肯定有这两个参数，可以通过item拿到这行所以的内容
+                render:(text,item)=>{
+                    return <Button size="small" onClick={(item) => { this.handleDelete(item) }}>删除</Button>
+                },
+                width:120
             }
         ]
 
