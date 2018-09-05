@@ -16,7 +16,7 @@ class BasicTable extends React.Component{
     request = ()=>{
         let _this = this;
         axios.ajax({
-            url:'/table/list',
+            url:'/table/high/list',
             data:{
                 params:{
                     page:this.params.page
@@ -40,6 +40,13 @@ class BasicTable extends React.Component{
         })
     }
 
+    handleChange = (pagination, filters, sorter)=>{
+        console.log("::" + sorter)
+        this.setState({
+            sortOrder:sorter.order
+        })
+    }
+    
     render(){
         const columns = [
             {
@@ -49,7 +56,7 @@ class BasicTable extends React.Component{
             },
             {
                 title: '用户名',
-                dataIndex: 'userName',
+                dataIndex: 'username',
                 width:80
             },
             {
@@ -120,7 +127,7 @@ class BasicTable extends React.Component{
             },
             {
                 title: '用户名',
-                dataIndex: 'userName',
+                dataIndex: 'username',
                 width:80,
                 fixed:'left'
             },
@@ -213,6 +220,77 @@ class BasicTable extends React.Component{
             }
         ]
 
+        const columns3 = [
+            {
+                title:'id',
+                dataIndex:'id',
+                width:80
+            },
+            {
+                title: '用户名',
+                dataIndex: 'username'
+            },
+            {
+                title:'性别',
+                dataIndex:'sex',
+                render(sex){
+                    return sex==1?"男":"女"
+                }
+            },
+            {
+                title: '年龄',
+                key: 'age',
+                dataIndex: 'age',
+                sorter:(a,b)=>{
+                    return a.age - b.age;
+                },
+                sortOrder:this.state.sortOrder
+            },
+            {
+                title: '状态',
+                dataIndex: 'state',
+                render(state){
+                    let config  = {
+                        '1':'咸鱼一条',
+                        '2':'风华浪子',
+                        '3':'北大才子',
+                        '4':'百度FE',
+                        '5':'创业者'
+                    }
+                    return config[state];
+                }
+            },
+            {
+                title:'兴趣',
+                dataIndex:'interest',
+                render(abc) {
+                    let config = {
+                        '1': '游泳',
+                        '2': '打篮球',
+                        '3': '踢足球',
+                        '4': '跑步',
+                        '5': '爬山',
+                        '6': '骑行',
+                        '7': '桌球',
+                        '8': '麦霸'
+                    }
+                    return config[abc];
+                }
+            },
+            {
+                title: '生日',
+                dataIndex: 'birthday',
+            },
+            {
+                title:'地址',
+                dataIndex:'address',
+            },
+            {
+                title: '时间',
+                dataIndex: 'time',
+            }
+        ]
+
         return(
             <div>
                 <Card title="头部固定" style={{marginTop:"20px"}}>
@@ -233,6 +311,17 @@ class BasicTable extends React.Component{
                         scroll={{x:1210}} //2.1通过计算表头的总共宽度是1200，这个scroll宽度要设的比1200宽点即可实现内容的左右滑动。
                     />
                 </Card>
+
+                 <Card title="排序" style={{marginTop:"20px"}}>
+                    <Table 
+                        bordered // 控制外边框线显示的
+                        columns={columns3}
+                        dataSource={this.state.data}
+                        pagination={false} // pagination 控制分页的
+                        onChange={this.handleChange}
+                    />
+                </Card>
+            
             </div>
         )
     }
